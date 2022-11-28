@@ -1,11 +1,13 @@
 package com.gdsc.study.gdscspringbootstudy.domain.user;
 
 import com.gdsc.study.gdscspringbootstudy.domain.BaseTimeEntity;
+import com.gdsc.study.gdscspringbootstudy.domain.comments.Comments;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
