@@ -1,11 +1,13 @@
 package com.gdsc.study.gdscspringbootstudy.domain.user;
 
 import com.gdsc.study.gdscspringbootstudy.domain.BaseTimeEntity;
+import com.gdsc.study.gdscspringbootstudy.domain.comments.Comments;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -28,6 +30,9 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Comments> comments;
 
     @Builder
     public User(String name, String email, String picture, Role role) {
