@@ -1,19 +1,21 @@
 package com.gdsc.study.gdscspringbootstudy.domain.comments;
 
+import com.gdsc.study.gdscspringbootstudy.domain.BaseTimeEntity;
 import com.gdsc.study.gdscspringbootstudy.domain.posts.Posts;
-import com.gdsc.study.gdscspringbootstudy.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
+import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Setter
 @Getter
 @NoArgsConstructor
 @Entity
-public class Comments {
+public class Comments extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +28,7 @@ public class Comments {
     @Column(columnDefinition = "TEXT", length = 500, nullable = false)
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    private String username;
 
     @Column(nullable = false)
     private Long groupNum;
@@ -42,12 +42,11 @@ public class Comments {
     @Column(nullable = false)
     private String deleted;
 
-    @CreatedDate
-    private LocalDateTime createdDate;
-
     @Builder
-    public Comments(String content, Long groupNum, int groupOrder, int groupDepth, String deleted){
+    public Comments(Posts posts, String content, String username, Long groupNum, int groupOrder, int groupDepth, String deleted){
+        this.posts = posts;
         this.content = content;
+        this.username = username;
         this.groupNum = groupNum;
         this.groupOrder = groupOrder;
         this.groupDepth = groupDepth;
