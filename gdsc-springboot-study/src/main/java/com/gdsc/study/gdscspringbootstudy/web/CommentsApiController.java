@@ -26,11 +26,5 @@ public class CommentsApiController {
         return commentsService.saveRecomment(postId, commentId, reCommentsSaveRequestDto);
     }
 
-//    private User getPrincipal(){  // 로그인한 현재 사용자
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        System.out.println("=====getPrincipal=====");
-//        System.out.println(authentication.getName());
-//        return userRepository.findByName(authentication.getName()).get();
-//    }
 
 }
