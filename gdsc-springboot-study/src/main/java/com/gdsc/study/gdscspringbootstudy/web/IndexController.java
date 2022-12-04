@@ -39,4 +39,11 @@ public class IndexController {
         model.addAttribute("post", dto);
         return "posts-update";
     }
+
+    @GetMapping("/posts/detail/{id}")
+    public String postsDetail(@PathVariable Long id, Model model) {
+        PostsResponseDto dto = postsService.findById(id);
+        model.addAttribute("detail", dto);
+        return "posts-detail";
+    }
 }
