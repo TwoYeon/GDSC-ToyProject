@@ -24,9 +24,24 @@
         </form>
 
         <div class="card my-4">
-            <h5 class="card-header">댓글:</h5>
+            <div class="card">
+                <div class="card-header bi bi-chat-dots"> Comments</div>
 
-            <!--여기에 댓글 리스트 들어갈 것-->
+                <ul class="list-group-flush">
+                    {{#comments}}
+                        <li class="list-group-item">
+                            <span>
+                                <span style="font-size: small">{{username}}</span>
+                                <span style="font-size: xx-small">{{createdDate}}</span>&nbsp;
+                                <button class="badge bi bi-trash"> 대댓글</button>&nbsp;
+                                <button class="badge bi bi-trash" id="btn-comment-delete"> 삭제</button>
+                                <input type="hidden" name="comments_id" id="comments_id" value="{{id}}"/>
+                            </span>
+                            <div>{{content_c}}</div>
+                        </li>
+                    {{/comments}}
+                </ul>
+            </div>
 
             <div class="card-body">
                 <form name="comment-form" action="/{{detail.id}}" method="post" autocomplete="off">
@@ -34,8 +49,9 @@
                         <label for="username"> 작성자 </label>
                         <input type="text" class="form-control" id="username" placeholder="작성자 이름을 입력하세요">
                         <br>
-                        <input type="hidden" name="posts_id" id="id" value="{{detail.id}}" />
-                        <textarea name="content_c" class="form-control" rows="3" id="content_c" placeholder="댓글을 입력하세요"></textarea>
+                        <input type="hidden" name="posts_id" id="id" value="{{detail.id}}"/>
+                        <textarea name="content_c" class="form-control" rows="3" id="content_c"
+                                  placeholder="댓글을 입력하세요"></textarea>
                     </div>
                     <button type="button" class="btn btn-primary" id="btn-comment-save">등록</button>
                 </form>
