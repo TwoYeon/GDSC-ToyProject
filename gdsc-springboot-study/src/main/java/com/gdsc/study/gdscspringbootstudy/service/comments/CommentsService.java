@@ -23,7 +23,7 @@ public class CommentsService {
     public Long save(Long postId, CommentsSaveRequestDto commentsSaveRequestDto){
         Comments commentEntity = Comments.builder()
                 .posts(postsRepository.findById(postId).get())
-                .content(commentsSaveRequestDto.getContent())
+                .content_c(commentsSaveRequestDto.getContent_c())
                 .username(commentsSaveRequestDto.getUsername())
                 .groupOrder(commentsSaveRequestDto.getGroupOrder())  // 댓글이면 0
                 .groupNum(0L)
@@ -44,7 +44,7 @@ public class CommentsService {
 
         Comments commentEntity = Comments.builder()
                 .posts(postsRepository.findById(postId).get())
-                .content(reCommentsSaveRequestDto.getContent())
+                .content_c(reCommentsSaveRequestDto.getContent_c())
                 .username(reCommentsSaveRequestDto.getUsername())
                 .groupOrder(commentsRepository.mComments(num))  // 대댓글 순서, 1부터 시작
                 .groupNum(num)
