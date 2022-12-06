@@ -3,6 +3,7 @@ package com.gdsc.study.gdscspringbootstudy.service.comments;
 import com.gdsc.study.gdscspringbootstudy.domain.comments.Comments;
 import com.gdsc.study.gdscspringbootstudy.domain.comments.CommentsRepository;
 import com.gdsc.study.gdscspringbootstudy.domain.posts.PostsRepository;
+import com.gdsc.study.gdscspringbootstudy.web.dto.CommentsListResponseDto;
 import com.gdsc.study.gdscspringbootstudy.web.dto.CommentsSaveRequestDto;
 import com.gdsc.study.gdscspringbootstudy.web.dto.ReCommentsSaveRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -18,6 +20,14 @@ public class CommentsService {
 
     private final CommentsRepository commentsRepository;
     private final PostsRepository postsRepository;
+
+    @Transactional(readOnly = true)
+    public List<CommentsListResponseDto> findAllDesc(Long postId){
+        return commentsRepository.findAllByPostsId(postId).stream()
+                .map(CommentsListResponseDto::new)
+                .collect(Collectors.toList());
+
+    }
 
     @Transactional
     public Long save(Long postId, CommentsSaveRequestDto commentsSaveRequestDto){
