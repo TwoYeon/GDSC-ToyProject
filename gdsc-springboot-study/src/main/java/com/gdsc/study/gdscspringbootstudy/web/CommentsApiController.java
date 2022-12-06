@@ -16,13 +16,6 @@ public class CommentsApiController {
     private final CommentsService commentsService;
     private final UserRepository userRepository;
 
-    @GetMapping("/{postId}")  // 해당 게시글의 댓글 보기 api
-    public String comments(@PathVariable Long postId, Model model){
-        model.addAttribute("comments", commentsService.findAllDesc(postId));
-        return "posts-detail";
-
-    }
-
     @PostMapping("/{postId}")  // 댓글 작성 api
     public Long save(@PathVariable Long postId, @RequestBody CommentsSaveRequestDto commentsSaveRequestDto){
         System.out.println("http://localhost:8080/api/v1/comments/1 요청=================");
@@ -34,5 +27,10 @@ public class CommentsApiController {
         return commentsService.saveRecomment(postId, commentId, reCommentsSaveRequestDto);
     }
 
+    @DeleteMapping("/{postId}/{commentId}")
+    public Long delete(@PathVariable Long commentId) {
+        commentsService.delete(commentId);
+        return commentId;
+    }
 
 }

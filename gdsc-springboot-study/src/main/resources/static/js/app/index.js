@@ -16,7 +16,12 @@ var main = {
         $('#btn-comment-save').on('click', function () {
             _this.comment_save();
         });
-    },
+
+        $('#btn-comment-delete').on('click', function () {
+            _this.comment_delete();
+        });
+    }
+    ,
     save : function () {
         var data = {
             title: $('#title').val(),
@@ -89,7 +94,23 @@ var main = {
             data: JSON.stringify(data)
         }).done(function() {
             alert('댓글이 등록되었습니다.');
-            window.location.href = '/';
+            window.location.href = '/posts/detail/'+id;
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    comment_delete : function () {
+        var id = $('#id').val();
+        var comments_id = $('#comments_id').val()
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/v1/comments/'+id+"/"+comments_id,
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8'
+        }).done(function() {
+            alert('댓글이 삭제되었습니다.');
+            window.location.href = '/posts/detail/'+id;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

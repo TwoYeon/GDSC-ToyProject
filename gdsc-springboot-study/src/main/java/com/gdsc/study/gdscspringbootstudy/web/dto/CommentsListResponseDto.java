@@ -8,12 +8,14 @@ import java.time.LocalDateTime;
 @Getter
 public class CommentsListResponseDto {
 
-    private String content;
+    private Long id;
+    private String content_c;
     private String username;
     private LocalDateTime createdDate;
 
     public CommentsListResponseDto(Comments commentsEntity){
-        this.content = commentsEntity.getContent();
+        this.id = commentsEntity.getId();
+        this.content_c = commentsEntity.getContent_c();
         this.username = commentsEntity.getUsername();
         this.createdDate = commentsEntity.getCreatedDate();
     }
