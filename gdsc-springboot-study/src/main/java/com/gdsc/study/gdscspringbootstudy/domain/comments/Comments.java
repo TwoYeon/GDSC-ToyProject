@@ -26,7 +26,7 @@ public class Comments extends BaseTimeEntity {
     private Posts posts;
 
     @Column(columnDefinition = "TEXT", length = 500, nullable = false)
-    private String content;
+    private String content_c;
 
     private String username;
 
@@ -43,9 +43,9 @@ public class Comments extends BaseTimeEntity {
     private String deleted;
 
     @Builder
-    public Comments(Posts posts, String content, String username, Long groupNum, int groupOrder, int groupDepth, String deleted){
+    public Comments(Posts posts, String content_c, String username, Long groupNum, int groupOrder, int groupDepth, String deleted){
         this.posts = posts;
-        this.content = content;
+        this.content_c = content_c;
         this.username = username;
         this.groupNum = groupNum;
         this.groupOrder = groupOrder;
