@@ -26,18 +26,32 @@
         <div class="card my-4">
             <div class="card">
                 <div class="card-header bi bi-chat-dots"> Comments</div>
-
                 <ul class="list-group-flush">
                     {{#comments}}
                         <li class="list-group-item">
                             <span>
                                 <span style="font-size: small">{{username}}</span>
                                 <span style="font-size: xx-small">{{createdDate}}</span>&nbsp;
-                                <button class="badge bi bi-trash"> 대댓글</button>&nbsp;
+                                <button class="badge bi bi-trash" id="btn-recomment" data-toggle="collapse" href="#recomment_collapse{{id}}" aria-expanded="false" aria-controls="recomment_collapse"> 대댓글</button>&nbsp;
                                 <button class="badge bi bi-trash" id="btn-comment-delete"> 삭제</button>
                                 <input type="hidden" name="comments_id" id="comments_id" value="{{id}}"/>
                             </span>
                             <div>{{content_c}}</div>
+                            <div class="collapse" id="recomment_collapse{{id}}">
+                                <div class="card-body">
+                                    <form name="comment-form" action="/{{detail.id}}" method="post" autocomplete="off">
+                                        <div class="form-group">
+                                            <label for="username"> 작성자 </label>
+                                            <input type="text" class="form-control" id="username_re" placeholder="작성자 이름을 입력하세요">
+                                            <br>
+                                            <input type="hidden" name="posts_id" id="id" value="{{detail.id}}"/>
+                                            <input type="hidden" name="comments_id" id="comments_id" value="{{id}}"/>
+                                            <textarea name="content_c" class="form-control" rows="3" id="content_c_re" placeholder="대댓글을 입력하세요"></textarea>
+                                        </div>
+                                        <button type="button" class="btn btn-primary" id="btn-recomment-save">등록</button>
+                                    </form>
+                                </div>
+                            </div>
                         </li>
                     {{/comments}}
                 </ul>

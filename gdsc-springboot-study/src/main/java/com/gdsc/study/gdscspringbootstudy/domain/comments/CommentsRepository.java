@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CommentsRepository extends JpaRepository<Comments, Long> {
 
-    @Query(value = "SELECT COUNT(*) FROM comments WHERE groupNum = :groupNum", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM comments WHERE GROUP_NUM = :groupNum", nativeQuery = true)
     int mComments(Long groupNum);
 
     List<Comments> findAllByPostsId(Long postsId);
