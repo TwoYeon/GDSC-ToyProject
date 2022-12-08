@@ -72,4 +72,12 @@ public class CommentsService {
         commentsRepository.delete(comments);
     }
 
+    @Transactional
+    public Long deleteComment(Long commentId){
+        Comments commentEntity = commentsRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다. id=" + commentId));
+        commentEntity.setDeleted("삭제된 댓글입니다");
+        return commentEntity.getId();
+    }
+
 }
