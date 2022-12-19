@@ -7,6 +7,7 @@ import com.gdsc.study.gdscspringbootstudy.web.dto.PostsSaveRequestDto;
 import com.gdsc.study.gdscspringbootstudy.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,9 +18,15 @@ public class PostsApiController {
 
     private final PostsService postsService;
 
+//    @PostMapping
+//    public Long save(@RequestBody PostsSaveRequestDto requestDto) {
+//        return postsService.save(requestDto);
+//    }
+
     @PostMapping
-    public Long save(@RequestBody PostsSaveRequestDto requestDto) {
-        return postsService.save(requestDto);
+    public Long save(@RequestPart("image")MultipartFile image, @RequestParam("title")String title,
+                     @RequestParam("content") String content, @RequestParam("author") String author) {
+        return postsService.save(image, title, content, author);
     }
 
     @PutMapping("/{id}")

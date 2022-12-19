@@ -7,10 +7,16 @@ import com.gdsc.study.gdscspringbootstudy.web.dto.PostsResponseDto;
 import com.gdsc.study.gdscspringbootstudy.web.dto.PostsSaveRequestDto;
 import com.gdsc.study.gdscspringbootstudy.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -18,9 +24,33 @@ import java.util.stream.Collectors;
 public class PostsService {
     private final PostsRepository postsRepository;
 
+//    @Value("${logging.file.path}")
+    private String uploadFolder = "C:/workspace/springbootwork/upload/";
+
     @Transactional
-    public Long save(PostsSaveRequestDto requestDto) {
-        return postsRepository.save(requestDto.toEntity()).getId();
+    public Long save(MultipartFile multipartFile, String title, String content, String author) {
+        UUID uuid = UUID.randomUUID();
+        String imageFileName = uuid + "_" + multipartFile.getOriginalFilename();
+
+        System.out.println("이미지 파일 이름: " + imageFileName);
+
+        Path imageFilePath = Paths.get(uploadFolder + imageFileName);
+
+        try{
+            Files.write(imageFilePath, multipartFile.getBytes());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        Posts posts = Posts.builder()
+                .title(title)
+                .content(content)
+                .author(author)
+                .imgUrl(imageFileName)
+                .build();
+        postsRepository.save(posts);
+
+        return posts.getId();
     }
 
     @Transactional
